@@ -1,0 +1,231 @@
+@import url('https://mui.kernelsu.org/internal/insets.css');
+@import url('https://mui.kernelsu.org/internal/colors.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.root_layout {
+  padding-top: var(--window-inset-top, 0px);
+  padding-bottom: var(--window-inset-bottom, 0px);
+  background: radial-gradient(
+    circle at top,
+    #1a0b0b 0%,
+    #0f0e10 45%,
+    #09090a 100%
+  );
+}
+
+:root {
+  --surface: #0d0d0f;
+  --surface-dim: #0a0a0c;
+  --surface-container: #141416;
+  --surface-variant: #1e1e22;
+  --on-surface: #eaeaea;
+  --on-surface-variant: #bdbdbd;
+  --primary: #8b1e1e;
+  --on-primary: #ffffff;
+  --secondary-container: #2a1a10;
+  --on-secondary-container: #f1d18a;
+  --accent-gold: #d4af37;
+  --outline: #3a3a3f;
+}
+
+.card_border {
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 22%, transparent);
+  background: var(--surface-container);
+  box-shadow: none;
+}
+
+h1, h2, h3 {
+  letter-spacing: 0.3px;
+}
+
+h1 {
+  color: var(--accent-gold);
+}
+
+.text-primary {
+  color: var(--accent-gold) !important;
+}
+
+.text-on-surface {
+  color: var(--on-surface);
+}
+
+.text-on-surface-variant {
+  color: var(--on-surface-variant);
+}
+
+.btn {
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  box-shadow: none;
+  color: var(--on-surface);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn.bg-primary {
+  background: linear-gradient(
+    180deg,
+    #9e2a2a,
+    #6f1414
+  );
+  color: #ffffff !important;
+}
+
+select {
+  appearance: none;
+  border-radius: 10px;
+  background-color: #1c1c20 !important;
+  color: #f2e6c9 !important;
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 35%, transparent);
+  box-shadow: none;
+}
+
+select option {
+  background-color: #141416;
+  color: #f2e6c9;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+}
+
+textarea {
+  border-radius: 10px;
+  background-color: #121214;
+  color: var(--on-surface);
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 30%, transparent);
+  box-shadow: none;
+}
+
+.peer {
+  background-color: #2a2a2e !important;
+  border: 1px solid #3f3f45;
+  box-shadow: none !important;
+}
+
+.peer::after {
+  background-color: #f5f5f5 !important;
+}
+
+.peer-checked\:bg-primary {
+  background: linear-gradient(
+    180deg,
+    #ffcc70,
+    #d4af37
+  ) !important;
+  border-color: #d4af37 !important;
+}
+
+.peer-checked\:after\:bg-on-primary::after {
+  background-color: #1a1414 !important;
+}
+
+#edit_gamelist_btn,
+#create_shortcut_btn,
+#save_log_btn {
+  background: linear-gradient(
+    180deg,
+    #1f1f23,
+    #161619
+  ) !important;
+  color: var(--on-surface) !important;
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 28%, transparent);
+  font-weight: 500;
+}
+
+#edit_gamelist_btn:hover,
+#create_shortcut_btn:hover,
+#save_log_btn:hover {
+  background: linear-gradient(
+    180deg,
+    #26262b,
+    #1a1a1e
+  ) !important;
+}
+
+#save_gamelist_btn {
+  background: linear-gradient(
+    180deg,
+    #1f1f23,
+    #161619
+  ) !important;
+  color: var(--on-surface) !important;
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 35%, transparent);
+  font-weight: 500;
+}
+
+#save_gamelist_btn:hover {
+  background: linear-gradient(
+    180deg,
+    #26262b,
+    #1a1a1e
+  ) !important;
+}
+
+#edit_gamelist .btn.bg-secondary-container {
+  background: linear-gradient(
+    180deg,
+    #18181c,
+    #121215
+  ) !important;
+  color: var(--on-surface-variant) !important;
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 18%, transparent);
+}
+
+#edit_gamelist textarea,
+#edit_gamelist .textarea,
+.modal-box textarea {
+  background: linear-gradient(
+    180deg,
+    #151518,
+    #101012
+  ) !important;
+  color: var(--on-surface) !important;
+
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 28%, transparent) !important;
+
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+#edit_gamelist textarea:focus,
+.modal-box textarea:focus {
+  border-color: var(--accent-gold) !important;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent-gold) 35%, transparent) !important;
+  outline: none !important;
+}
+
+textarea.border-red-500,
+textarea.ring-red-500,
+textarea.focus\:ring-red-500 {
+  border-color: var(--accent-gold) !important;
+  box-shadow: none !important;
+}
+
+#donate_btn {
+  background: var(--surface-container);
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 25%, transparent);
+  box-shadow: none;
+}
+
+.modal-box {
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 25%, transparent);
+  background: var(--surface-container);
+  box-shadow: none;
+}
+
+html,
+body {
+  touch-action: pan-x pan-y;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}

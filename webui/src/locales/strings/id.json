@@ -6,14 +6,6 @@
         "chipset": "Chipset",
         "androidSDK": "Android SDK"
     },
-    "nav": {
-        "home": "Beranda",
-        "settings": "Pengaturan",
-        "about": "Tentang"
-    },
-    "about": {
-        "title": "Tentang"
-    },
     "settings": {
         "title": "Pengaturan",
         "dnd_gameplay": "DND Saat Bermain",
