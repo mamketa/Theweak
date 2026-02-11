@@ -29,6 +29,9 @@
   --on-secondary-container: #f1d18a;
   --accent-gold: #d4af37;
   --outline: #3a3a3f;
+  --nav-bg: #0f0e10;
+  --nav-border: #2a1a10;
+  --nav-active: #8b1e1e;
 }
 
 .card_border {
@@ -58,11 +61,92 @@ h1 {
   color: var(--on-surface-variant);
 }
 
+/* Bottom Navigation Bar */
+.nav-container {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--nav-bg);
+  border-top: 1px solid var(--nav-border);
+  padding: 8px 12px;
+  padding-bottom: max(8px, var(--window-inset-bottom, 8px));
+  z-index: 50;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  color: var(--on-surface-variant);
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 14px;
+  min-width: 64px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  gap: 4px;
+}
+
+.nav-btn:hover {
+  background: color-mix(in srgb, var(--nav-active) 15%, transparent);
+}
+
+.nav-btn.active {
+  color: var(--on-primary);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--nav-active) 90%, #000),
+    color-mix(in srgb, var(--nav-active) 70%, #000)
+  );
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 35%, transparent);
+  box-shadow: 0 2px 8px rgba(139, 30, 30, 0.3);
+}
+
+.nav-btn svg {
+  stroke: currentColor;
+  transition: stroke 0.2s ease;
+}
+
+.nav-btn.active svg {
+  stroke: var(--on-primary);
+}
+
+/* Page transitions */
+.page-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button Styles (inspired by photo 2) */
 .btn {
   border-radius: 12px;
   transition: all 0.2s ease;
   box-shadow: none;
   color: var(--on-surface);
+  font-weight: 500;
+  letter-spacing: 0.3px;
 }
 
 .btn:active {
@@ -71,11 +155,12 @@ h1 {
 
 .btn.bg-primary {
   background: linear-gradient(
-    180deg,
+    145deg,
     #9e2a2a,
     #6f1414
   );
   color: #ffffff !important;
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 40%, transparent);
 }
 
 select {
@@ -85,6 +170,8 @@ select {
   color: #f2e6c9 !important;
   border: 1px solid color-mix(in srgb, var(--accent-gold) 35%, transparent);
   box-shadow: none;
+  padding: 8px 12px;
+  font-size: 13px;
 }
 
 select option {
@@ -103,6 +190,7 @@ textarea {
   color: var(--on-surface);
   border: 1px solid color-mix(in srgb, var(--accent-gold) 30%, transparent);
   box-shadow: none;
+  padding: 10px;
 }
 
 .peer {
@@ -117,7 +205,7 @@ textarea {
 
 .peer-checked\:bg-primary {
   background: linear-gradient(
-    180deg,
+    145deg,
     #ffcc70,
     #d4af37
   ) !important;
@@ -128,24 +216,27 @@ textarea {
   background-color: #1a1414 !important;
 }
 
+/* Action buttons style from photo 2 */
 #edit_gamelist_btn,
 #create_shortcut_btn,
 #save_log_btn {
   background: linear-gradient(
-    180deg,
+    145deg,
     #1f1f23,
     #161619
   ) !important;
   color: var(--on-surface) !important;
   border: 1px solid color-mix(in srgb, var(--accent-gold) 28%, transparent);
   font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 12px;
 }
 
 #edit_gamelist_btn:hover,
 #create_shortcut_btn:hover,
 #save_log_btn:hover {
   background: linear-gradient(
-    180deg,
+    145deg,
     #26262b,
     #1a1a1e
   ) !important;
@@ -153,18 +244,20 @@ textarea {
 
 #save_gamelist_btn {
   background: linear-gradient(
-    180deg,
+    145deg,
     #1f1f23,
     #161619
   ) !important;
   color: var(--on-surface) !important;
   border: 1px solid color-mix(in srgb, var(--accent-gold) 35%, transparent);
   font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 12px;
 }
 
 #save_gamelist_btn:hover {
   background: linear-gradient(
-    180deg,
+    145deg,
     #26262b,
     #1a1a1e
   ) !important;
@@ -172,28 +265,28 @@ textarea {
 
 #edit_gamelist .btn.bg-secondary-container {
   background: linear-gradient(
-    180deg,
+    145deg,
     #18181c,
     #121215
   ) !important;
   color: var(--on-surface-variant) !important;
   border: 1px solid color-mix(in srgb, var(--accent-gold) 18%, transparent);
+  border-radius: 12px;
 }
 
 #edit_gamelist textarea,
 #edit_gamelist .textarea,
 .modal-box textarea {
   background: linear-gradient(
-    180deg,
+    145deg,
     #151518,
     #101012
   ) !important;
   color: var(--on-surface) !important;
-
   border: 1px solid color-mix(in srgb, var(--accent-gold) 28%, transparent) !important;
-
   box-shadow: none !important;
   outline: none !important;
+  border-radius: 12px;
 }
 
 #edit_gamelist textarea:focus,
@@ -210,10 +303,41 @@ textarea.focus\:ring-red-500 {
   box-shadow: none !important;
 }
 
+/* Social buttons in About page */
+#telegram_btn,
+#youtube_btn,
+#github_btn,
+#website_btn {
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+#telegram_btn:hover,
+#youtube_btn:hover,
+#github_btn:hover,
+#website_btn:hover {
+  transform: translateY(-2px);
+}
+
 #donate_btn {
-  background: var(--surface-container);
-  border: 1px solid color-mix(in srgb, var(--accent-gold) 25%, transparent);
-  box-shadow: none;
+  background: linear-gradient(
+    145deg,
+    #9e2a2a,
+    #6f1414
+  );
+  color: var(--on-primary) !important;
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 40%, transparent);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+#donate_btn:hover {
+  background: linear-gradient(
+    145deg,
+    #b23636,
+    #8b1e1e
+  );
+  transform: translateY(-2px);
 }
 
 .modal-box {
@@ -228,4 +352,5 @@ body {
   touch-action: pan-x pan-y;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overscroll-behavior: none;
 }

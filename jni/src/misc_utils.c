@@ -147,7 +147,7 @@ void is_kanged(void) {
 
 doorprize:
     log_nusantara(LOG_FATAL, "Module modified by 3rd party, exiting.");
-    notify("Trying to rename me?");
+    notify("Want to change me lol?");
     exit(EXIT_FAILURE);
 }
 

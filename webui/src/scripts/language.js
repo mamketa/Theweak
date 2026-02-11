@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2024-2025 Rem01Gaming
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 // Import core translations statically
 import enTranslations from '../locales/strings/en.json';
 import languages from '../locales/languages.json';
@@ -172,6 +156,76 @@ async function initI18n() {
   } catch (error) {
     console.error('i18n initialization failed:', error);
   }
+}
+
+// Or add directly to the translation function
+const navbarTranslations = {
+  en: {
+    nav: {
+      home: "Home",
+      settings: "Settings",
+      about: "About"
+    },
+    about: {
+      title: "About"
+    }
+  },
+  // Add other languages as needed
+};
+
+// Modify the getTranslationSync function to include navbar translations
+function getTranslationSync(key, ...args) {
+  // Check navbar translations first
+  if (key.startsWith('nav.') || key.startsWith('about.')) {
+    const keys = key.split('.');
+    let value = navbarTranslations['en']; // Default to English
+    
+    for (const k of keys) {
+      value = value?.[k];
+      if (!value) break;
+    }
+    
+    if (value) {
+      return value;
+    }
+  }
+  
+  // Rest of existing function...
+  if (!currentTranslations) {
+    console.error('Translations not loaded!');
+    return key;
+  }
+
+  const keys = key.split('.');
+  let value = currentTranslations;
+  
+  // Try current language
+  for (const k of keys) {
+    value = value?.[k];
+    if (!value) break;
+  }
+  
+  // Fallback to English
+  if (!value) {
+    value = cachedEnglishTranslations;
+    for (const k of keys) {
+      value = value?.[k];
+      if (!value) break;
+    }
+  }
+
+  // Return key if no translation found
+  if (!value) return key;
+
+  // Handle placeholder replacement
+  if (args.length > 0 && typeof value === 'string') {
+    return value.replace(/\{(\d+)\}/g, (match, index) => {
+      const idx = parseInt(index);
+      return args[idx] !== undefined ? args[idx] : match;
+    });
+  }
+
+  return value;
 }
 
 // Initialize immediately if DOM is ready, otherwise wait
