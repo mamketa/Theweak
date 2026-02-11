@@ -16,290 +16,209 @@
   </head>
 
   <body class="bg-surface flex justify-center min-h-screen root_layout">
-    <!-- Fixed Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-sm border-b border-surface-variant/30">
-      <div class="max-w-2xl mx-auto px-3 py-2">
-        <div class="flex justify-between items-center text-on-surface">
-          <div class="flex items-center gap-2">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-accent-gold">
-              <path d="M7.52879 16.4712C2.59014 11.5325 0.588351 5.52715 3.05768 3.05782C5.04852 1.06697 9.33779 1.98237 13.5134 5M16.471 7.52894C21.4097 12.4676 23.4115 18.473 20.9421 20.9423C18.9535 22.931 14.6713 22.0198 10.5 19.01M20.9423 3.05768C23.4117 5.52701 21.4099 11.5324 16.4712 16.4711C11.5326 21.4097 5.5272 23.4115 3.05787 20.9422C1.06704 18.9513 1.98242 14.6621 5 10.4865C5.72528 9.48285 6.57199 8.4858 7.52899 7.5288C12.4676 2.59014 18.473 0.588345 20.9423 3.05768Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5C13.3807 9.5 14.5 10.6193 14.5 12Z" stroke="currentColor" stroke-width="1.5"/>
-            </svg>
-            <h1 data-i18n="common.module" class="text-lg font-semibold text-accent-gold"></h1>
-          </div>
-          <div>
-            <select id="languageSelector" class="select select-sm bg-surface-container text-on-surface border-surface-variant"></select>
-          </div>
+    <main class="p-3 text-sm w-full max-w-2xl">
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-6 text-on-surface">
+        <h1 data-i18n="common.module" class="text-lg font-semibold"></h1>
+        <div>
+          <select id="languageSelector" class="select select-sm bg-surface-container text-on-surface"></select>
         </div>
       </div>
-    </header>
 
-    <main class="p-3 text-sm w-full max-w-2xl mt-14">
-      <!-- Daemon Status Card -->
+      <!-- Daemon Status -->
       <div class="bg-secondary-container mb-4 p-4 rounded-xl flex items-start justify-between text-on-secondary-container card_border">
-        <div class="flex-1">
-          <div class="flex items-center gap-2 mb-2">
-            <div class="w-3 h-3 rounded-full bg-green-500 animate-pulse" id="status_indicator"></div>
-            <span id="daemon_status" class="text-base font-medium">Loading</span>
-          </div>
-          <div class="text-xs space-y-1">
-            <div class="flex items-center gap-1">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2L12 6M12 18L12 22M4 12H8M16 12H20M15 6L21 3V21L15 18V6Z" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <span>PID: </span>
-              <span id="daemon_pid" class="font-mono">One moment please...</span>
-            </div>
-            <div class="text-on-secondary-container/80">
-              Nusantara Tweak Daemon Service
-            </div>
-          </div>
+        <div>
+          <span id="daemon_status" class="text-lg font-semibold">Loading</span>
+          <span id="daemon_pid" class="text-xs mt-3 block">One moment please...</span>
         </div>
-        <div class="relative">
-          <div class="absolute -top-2 -right-2 w-6 h-6 bg-accent-gold/20 rounded-full flex items-center justify-center">
-            <div class="w-2 h-2 bg-accent-gold rounded-full animate-pulse"></div>
-          </div>
-          <img id="nusantara_logo" class="w-20 h-20" />
-        </div>
+        <img id="nusantara_logo" class="w-24 h-24" />
       </div>
 
-      <!-- Device & Module Info Card -->
+      <!-- Device & Module Info -->
       <div class="bg-surface-container mb-4 p-4 rounded-xl text-on-surface card_border">
-        <div class="grid grid-cols-1 gap-2">
-          <!-- Module Info -->
-          <div class="flex items-center gap-3 p-2 hover:bg-surface-variant/30 rounded-lg transition-colors">
-            <div class="w-8 h-8 flex items-center justify-center bg-surface rounded-lg">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="text-accent-gold">
-                <path d="M7.52879 16.4712C2.59014 11.5325 0.588351 5.52715 3.05768 3.05782C5.04852 1.06697 9.33779 1.98237 13.5134 5M16.471 7.52894C21.4097 12.4676 23.4115 18.473 20.9421 20.9423C18.9535 22.931 14.6713 22.0198 10.5 19.01M20.9423 3.05768C23.4117 5.52701 21.4099 11.5324 16.4712 16.4711C11.5326 21.4097 5.5272 23.4115 3.05787 20.9422C1.06704 18.9513 1.98242 14.6621 5 10.4865C5.72528 9.48285 6.57199 8.4858 7.52899 7.5288C12.4676 2.59014 18.473 0.588345 20.9423 3.05768Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5C13.3807 9.5 14.5 10.6193 14.5 12Z" stroke="currentColor" stroke-width="1.5"/>
-              </svg>
-            </div>
-            <div class="flex-1">
-              <h3 data-i18n="common.module" class="text-sm font-medium"></h3>
-              <span id="module_version" class="text-xs text-on-surface-variant block mt-0.5"></span>
-            </div>
-          </div>
+       <div class="py-2 flex items-start gap-4">
+         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" class="text-primary mt-2 shrink-0">
+           <path d="M7.52879 16.4712C2.59014 11.5325 0.588351 5.52715 3.05768 3.05782C5.04852 1.06697 9.33779 1.98237 13.5134 5M16.471 7.52894C21.4097 12.4676 23.4115 18.473 20.9421 20.9423C18.9535 22.931 14.6713 22.0198 10.5 19.01M20.9423 3.05768C23.4117 5.52701 21.4099 11.5324 16.4712 16.4711C11.5326 21.4097 5.5272 23.4115 3.05787 20.9422C1.06704 18.9513 1.98242 14.6621 5 10.4865C5.72528 9.48285 6.57199 8.4858 7.52899 7.5288C12.4676 2.59014 18.473 0.588345 20.9423 3.05768Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+           <path d="M14.5 12C14.5 13.3807 13.3807 14.5 12 14.5C10.6193 14.5 9.5 13.3807 9.5 12C9.5 10.6193 10.6193 9.5 12 9.5C13.3807 9.5 14.5 10.6193 14.5 12Z" stroke="currentColor" stroke-width="1.5"/>
+         </svg>
+         <div>
+           <h3 data-i18n="common.module" class="text-sm font-medium text-on-surface"></h3>
+           <span id="module_version" class="text-xs text-on-surface-variant block mt-1"></span>
+         </div>
+       </div>
 
-          <!-- Profile Info -->
-          <div class="flex items-center gap-3 p-2 hover:bg-surface-variant/30 rounded-lg transition-colors">
-            <div class="w-8 h-8 flex items-center justify-center bg-surface rounded-lg">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="text-accent-gold">
-                <path d="M5 16V20M6 4V8M7 18H3M8 6H4M13 4L14.7528 8.44437C14.9407 8.92083 15.0347 9.15906 15.1786 9.35994C15.3061 9.538 15.462 9.69391 15.6401 9.82143C15.8409 9.9653 16.0792 10.0593 16.5556 10.2472L21 12L16.5556 13.7528C16.0792 13.9407 15.8409 14.0347 15.6401 14.1786C15.462 14.3061 15.3061 14.462 15.1786 14.6401C15.0347 14.8409 14.9407 15.0792 14.7528 15.5556L13 20L11.2472 15.5556C11.0593 15.0792 10.9653 14.8409 10.8214 14.6401C10.6939 14.462 10.538 14.3061 10.3599 14.1786C10.1591 14.0347 9.92083 13.9407 9.44437 13.7528L5 12L9.44437 10.2472C9.92083 10.0593 10.1591 9.9653 10.3599 9.82143C10.538 9.69391 10.6939 9.538 10.8214 9.35994C10.9653 9.15906 11.0593 8.92083 11.2472 8.44437L13 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="flex-1">
-              <h3 data-i18n="common.profile" class="text-sm font-medium"></h3>
-              <span id="nusantara_profile" class="text-xs text-on-surface-variant block mt-0.5"></span>
-            </div>
-          </div>
+       <div class="py-2 flex items-start gap-4">
+         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="text-primary mt-2 shrink-0">
+           <path d="M5 16V20M6 4V8M7 18H3M8 6H4M13 4L14.7528 8.44437C14.9407 8.92083 15.0347 9.15906 15.1786 9.35994C15.3061 9.538 15.462 9.69391 15.6401 9.82143C15.8409 9.9653 16.0792 10.0593 16.5556 10.2472L21 12L16.5556 13.7528C16.0792 13.9407 15.8409 14.0347 15.6401 14.1786C15.462 14.3061 15.3061 14.462 15.1786 14.6401C15.0347 14.8409 14.9407 15.0792 14.7528 15.5556L13 20L11.2472 15.5556C11.0593 15.0792 10.9653 14.8409 10.8214 14.6401C10.6939 14.462 10.538 14.3061 10.3599 14.1786C10.1591 14.0347 9.92083 13.9407 9.44437 13.7528L5 12L9.44437 10.2472C9.92083 10.0593 10.1591 9.9653 10.3599 9.82143C10.538 9.69391 10.6939 9.538 10.8214 9.35994C10.9653 9.15906 11.0593 8.92083 11.2472 8.44437L13 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+         </svg>
+         <div>
+           <h3 data-i18n="common.profile" class="text-sm font-medium text-on-surface"></h3>
+           <span id="nusantara_profile" class="text-xs text-on-surface-variant block mt-1"></span>
+         </div>
+       </div>
 
-          <!-- Kernel Info -->
-          <div class="flex items-center gap-3 p-2 hover:bg-surface-variant/30 rounded-lg transition-colors">
-            <div class="w-8 h-8 flex items-center justify-center bg-surface rounded-lg">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-accent-gold">
-                <path d="M4 18L10 12L4 6" />
-                <path d="M12 18H20" stroke-miterlimit="10" />
-              </svg>
-            </div>
-            <div class="flex-1">
-              <h3 data-i18n="common.kernel" class="text-sm font-medium"></h3>
-              <span id="kernel_version" class="text-xs text-on-surface-variant block mt-0.5"></span>
-            </div>
-          </div>
+       <div class="py-2 flex items-start gap-4">
+         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-2 shrink-0">
+           <path d="M4 18L10 12L4 6" />
+           <path d="M12 18H20" stroke-miterlimit="10" />
+         </svg>
+         <div>
+           <h3 data-i18n="common.kernel" class="text-sm font-medium text-on-surface"></h3>
+           <span id="kernel_version" class="text-xs text-on-surface-variant block mt-1"></span>
+         </div>
+       </div>
 
-          <!-- Chipset Info -->
-          <div class="flex items-center gap-3 p-2 hover:bg-surface-variant/30 rounded-lg transition-colors">
-            <div class="w-8 h-8 flex items-center justify-center bg-surface rounded-lg">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="text-accent-gold">
-                <path d="M12.4286 10L11 12H13L11.5714 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M4 12C4 8.22876 4 6.34315 5.17157 5.17157C6.34315 4 8.22876 4 12 4C15.7712 4 17.6569 4 18.8284 5.17157C20 6.34315 20 8.22876 20 12C20 15.7712 20 17.6569 18.8284 18.8284C17.6569 20 15.7712 20 12 20C8.22876 20 6.34315 20 5.17157 18.8284C4 17.6569 4 15.7712 4 12Z" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M4 12H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M22 12H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M4 9H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M22 9H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M4 15H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M22 15H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M12 20L12 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M12 2L12 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M9 20L9 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M9 2L9 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M15 20L15 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M15 2L15 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M17 14C17 15.4142 17 16.1213 16.5607 16.5607C16.1213 17 15.4142 17 14 17H10C8.58579 17 7.87868 17 7.43934 16.5607C7 16.1213 7 15.4142 7 14V10C7 8.58579 7 7.87868 7.43934 7.43934C7.87868 7 8.58579 7 10 7H14C15.4142 7 16.1213 7 16.5607 7.43934C17 7.87868 17 8.58579 17 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div class="flex-1">
-              <h3 data-i18n="common.chipset" class="text-sm font-medium"></h3>
-              <span id="chipset_name" class="text-xs text-on-surface-variant block mt-0.5"></span>
-            </div>
-          </div>
-          
-          <!-- Android SDK Info -->
-          <div class="flex items-center gap-3 p-2 hover:bg-surface-variant/30 rounded-lg transition-colors">
-            <div class="w-8 h-8 flex items-center justify-center bg-surface rounded-lg">
-              <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor" class="text-accent-gold">
-                <path d="M23.35 12.653l2.496-4.323c0.044-0.074 0.07-0.164 0.07-0.26 0-0.287-0.232-0.519-0.519-0.519 -0.191 0-0.358 0.103-0.448 0.257l-0.001 0.002-2.527 4.377c-1.887-0.867-4.094-1.373-6.419-1.373s-4.532 0.506-6.517 1.413l0.098-0.04-2.527-4.378c-0.091-0.156-0.259-0.26-0.45-0.26 -0.287 0-0.519 0.232-0.519 0.519 0 0.096 0.026 0.185 0.071 0.262l-0.001-0.002 2.496 4.323c-4.286 2.367-7.236 6.697-7.643 11.744l-0.003 0.052h29.991c-0.41-5.099-3.36-9.429-7.57-11.758l-0.076-0.038zM9.098 20.176c-0.69 0-1.249-0.559-1.249-1.249s0.559-1.249 1.249-1.249 1.249 0.559 1.249 1.249 -0.559 1.249-1.249 1.249zM22.902 20.176c-0.69 0-1.249-0.559-1.249-1.249s0.559-1.249 1.249-1.249 1.249 0.559 1.249 1.249 -0.559 1.249-1.249 1.249z"/>
-              </svg>
-            </div>
-            <div class="flex-1">
-              <h3 data-i18n="common.androidSDK" class="text-sm font-medium"></h3>
-              <span id="android_sdk" class="text-xs text-on-surface-variant block mt-0.5"></span>
-            </div>
-          </div>
-        </div>
-      </div>
+       <div class="py-2 flex items-start gap-4">
+         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="text-primary mt-2 shrink-0">
+           <path d="M12.4286 10L11 12H13L11.5714 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+           <path d="M4 12C4 8.22876 4 6.34315 5.17157 5.17157C6.34315 4 8.22876 4 12 4C15.7712 4 17.6569 4 18.8284 5.17157C20 6.34315 20 8.22876 20 12C20 15.7712 20 17.6569 18.8284 18.8284C17.6569 20 15.7712 20 12 20C8.22876 20 6.34315 20 5.17157 18.8284C4 17.6569 4 15.7712 4 12Z" stroke="currentColor" stroke-width="1.5"/>
+           <path d="M4 12H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+           <path d="M22 12H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+           <path d="M4 9H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+           <path d="M22 9H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+           <path d="M4 15H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+           <path d="M22 15H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+           <path d="M12 20L12 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+           <path d="M12 2L12 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+           <path d="M9 20L9 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+           <path d="M9 2L9 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+           <path d="M15 20L15 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+           <path d="M15 2L15 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+           <path d="M17 14C17 15.4142 17 16.1213 16.5607 16.5607C16.1213 17 15.4142 17 14 17H10C8.58579 17 7.87868 17 7.43934 16.5607C7 16.1213 7 15.4142 7 14V10C7 8.58579 7 7.87868 7.43934 7.43934C7.87868 7 8.58579 7 10 7H14C15.4142 7 16.1213 7 16.5607 7.43934C17 7.87868 17 8.58579 17 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+         </svg>
+         <div>
+           <h3 data-i18n="common.chipset" class="text-sm font-medium text-on-surface"></h3>
+           <span id="chipset_name" class="text-xs text-on-surface-variant block mt-1"></span>
+         </div>
+       </div>
+       
+       <div class="py-2 flex items-start gap-4">
+         <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor" class="text-primary mt-2 shrink-0">
+           <path d="M23.35 12.653l2.496-4.323c0.044-0.074 0.07-0.164 0.07-0.26 0-0.287-0.232-0.519-0.519-0.519 -0.191 0-0.358 0.103-0.448 0.257l-0.001 0.002-2.527 4.377c-1.887-0.867-4.094-1.373-6.419-1.373s-4.532 0.506-6.517 1.413l0.098-0.04-2.527-4.378c-0.091-0.156-0.259-0.26-0.45-0.26 -0.287 0-0.519 0.232-0.519 0.519 0 0.096 0.026 0.185 0.071 0.262l-0.001-0.002 2.496 4.323c-4.286 2.367-7.236 6.697-7.643 11.744l-0.003 0.052h29.991c-0.41-5.099-3.36-9.429-7.57-11.758l-0.076-0.038zM9.098 20.176c-0.69 0-1.249-0.559-1.249-1.249s0.559-1.249 1.249-1.249 1.249 0.559 1.249 1.249 -0.559 1.249-1.249 1.249zM22.902 20.176c-0.69 0-1.249-0.559-1.249-1.249s0.559-1.249 1.249-1.249 1.249 0.559 1.249 1.249 -0.559 1.249-1.249 1.249z"/>
+         </svg>
+         <div>
+           <h3 data-i18n="common.androidSDK" class="text-sm font-medium text-on-surface"></h3>
+           <span id="android_sdk" class="text-xs text-on-surface-variant block mt-1"></span>
+         </div>
+       </div>
+     </div>
 
-      <!-- Settings Card -->
+      <!-- Settings -->
       <div class="bg-surface-container mb-4 p-4 rounded-xl text-on-surface card_border">
-        <h2 data-i18n="settings.title" class="text-base font-semibold mb-4"></h2>
+        <h2 data-i18n="settings.title" class="text-base font-semibold mb-2"></h2>
 
-        <div class="space-y-3">
-          <!-- DND Gameplay -->
-          <div class="flex items-center justify-between p-2 hover:bg-surface-variant/20 rounded-lg transition-colors">
-            <div class="flex items-center gap-2">
-              <div class="text-sm">
-                <span data-i18n="settings.dnd_gameplay"></span>
-              </div>
-              <button class="btn btn-circle btn-ghost btn-xs text-primary info-btn" data-title-key="modal.dnd_title" data-desc-key="modal.dnd_desc">
-                <svg tabindex="0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-4 w-4 stroke-current">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              </button>
-            </div>
-            <label class="relative inline-flex cursor-pointer items-center">
-              <input id="dnd_switch" type="checkbox" class="peer sr-only" />
-              <label for="dnd_switch" class="hidden"></label>
-              <div class="peer h-6 w-11 rounded-full border border-outline bg-surface-variant after:absolute after:left-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-4 after:border-surface-variant after:bg-outline after:transition-all after:content-[''] peer-checked:border-primary peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-on-primary peer-checked:after:bg-on-primary"></div>
-            </label>
+        <div class="flex items-center justify-between py-1 mb-2">
+          <div>
+            <span data-i18n="settings.dnd_gameplay"></span>
+            <button class="btn btn-circle btn-ghost btn-xs text-primary info-btn" data-title-key="modal.dnd_title" data-desc-key="modal.dnd_desc">
+              <svg tabindex="0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-4 w-4 stroke-current">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </button>
           </div>
-
-          <!-- Lite Mode -->
-          <div class="flex items-center justify-between p-2 hover:bg-surface-variant/20 rounded-lg transition-colors">
-            <div class="flex items-center gap-2">
-              <div class="text-sm">
-                <span data-i18n="settings.lite_mode"></span>
-              </div>
-              <button class="btn btn-circle btn-ghost btn-xs text-primary info-btn" data-title-key="modal.lite_mode_title" data-desc-key="modal.lite_mode_desc">
-                <svg tabindex="0" xmlns="http.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-4 w-4 stroke-current">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              </button>
-            </div>
-            <label class="relative inline-flex cursor-pointer items-center">
-              <input id="lite_mode_switch" type="checkbox" class="peer sr-only" />
-              <label for="lite_mode_switch" class="hidden"></label>
-              <div class="peer h-6 w-11 rounded-full border border-outline bg-surface-variant after:absolute after:left-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-4 after:border-surface-variant after:bg-outline after:transition-all after:content-[''] peer-checked:border-primary peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-on-primary peer-checked:after:bg-on-primary"></div>
-            </label>
-          </div>
-
-          <!-- Device Mitigation -->
-          <div class="flex items-center justify-between p-2 hover:bg-surface-variant/20 rounded-lg transition-colors">
-            <div class="flex items-center gap-2">
-              <div class="text-sm">
-                <span data-i18n="settings.device_mitigation"></span>
-              </div>
-              <button class="btn btn-circle btn-ghost btn-xs text-primary info-btn" data-title-key="modal.device_mitigation_title" data-desc-key="modal.device_mitigation_desc">
-                <svg tabindex="0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-4 w-4 stroke-current">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              </button>
-            </div>
-            <label class="relative inline-flex cursor-pointer items-center">
-              <input id="device_mitigation_switch" type="checkbox" class="peer sr-only" />
-              <label for="device_mitigation_switch" class="hidden"></label>
-              <div class="peer h-6 w-11 rounded-full border border-outline bg-surface-variant after:absolute after:left-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-4 after:border-surface-variant after:bg-outline after:transition-all after:content-[''] peer-checked:border-primary peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-on-primary peer-checked:after:bg-on-primary"></div>
-            </label>
-          </div>
+          <label class="relative inline-flex cursor-pointer items-center">
+            <input id="dnd_switch" type="checkbox" class="peer sr-only" />
+            <label for="dnd_switch" class="hidden"></label>
+            <div class="peer h-6 w-11 rounded-full border border-outline bg-surface-variant after:absolute after:left-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-4 after:border-surface-variant after:bg-outline after:transition-all after:content-[''] peer-checked:border-primary peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-on-primary peer-checked:after:bg-on-primary"></div>
+          </label>
         </div>
 
-        <!-- CPU Governor Settings -->
-        <div class="mt-4 space-y-3">
-          <div class="space-y-1">
-            <p class="text-sm" data-i18n="settings.default_cpu_gov"></p>
-            <select id="default_cpu_gov" class="select bg-surface text-on-surface w-full border-surface-variant text-sm">
-              <option value="schedutil" selected>schedutil</option>
-            </select>
+        <div class="flex items-center justify-between py-1 mb-2">
+          <div>
+            <span data-i18n="settings.lite_mode"></span>
+            <button class="btn btn-circle btn-ghost btn-xs text-primary info-btn" data-title-key="modal.lite_mode_title" data-desc-key="modal.lite_mode_desc">
+              <svg tabindex="0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-4 w-4 stroke-current">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </button>
           </div>
+          <label class="relative inline-flex cursor-pointer items-center">
+            <input id="lite_mode_switch" type="checkbox" class="peer sr-only" />
+            <label for="lite_mode_switch" class="hidden"></label>
+            <div class="peer h-6 w-11 rounded-full border border-outline bg-surface-variant after:absolute after:left-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-4 after:border-surface-variant after:bg-outline after:transition-all after:content-[''] peer-checked:border-primary peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-on-primary peer-checked:after:bg-on-primary"></div>
+          </label>
+        </div>
 
-          <div class="space-y-1">
-            <p class="text-sm" data-i18n="settings.powersave_cpu_gov"></p>
-            <select id="powersave_cpu_gov" class="select bg-surface text-on-surface w-full border-surface-variant text-sm">
-              <option value="powersave" selected>powersave</option>
-            </select>
+        <div class="flex items-center justify-between py-1 mb-2">
+          <div>
+            <span data-i18n="settings.device_mitigation"></span>
+            <button class="btn btn-circle btn-ghost btn-xs text-primary info-btn" data-title-key="modal.device_mitigation_title" data-desc-key="modal.device_mitigation_desc">
+              <svg tabindex="0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-4 w-4 stroke-current">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </button>
           </div>
+          <label class="relative inline-flex cursor-pointer items-center">
+            <input id="device_mitigation_switch" type="checkbox" class="peer sr-only" />
+            <label for="device_mitigation_switch" class="hidden"></label>
+            <div class="peer h-6 w-11 rounded-full border border-outline bg-surface-variant after:absolute after:left-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-4 after:border-surface-variant after:bg-outline after:transition-all after:content-[''] peer-checked:border-primary peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-on-primary peer-checked:after:bg-on-primary"></div>
+          </label>
+        </div>
+
+        <div class="py-1 mb-2">
+          <p class="mb-2" data-i18n="settings.default_cpu_gov"></p>
+          <select id="default_cpu_gov" class="select bg-primary text-xs text-on-primary w-full p-2">
+            <option value="schedutil" selected>schedutil</option>
+          </select>
+        </div>
+
+        <div class="py-1 mb-2">
+          <p class="mb-2" data-i18n="settings.powersave_cpu_gov"></p>
+          <select id="powersave_cpu_gov" class="select bg-primary text-xs text-on-primary w-full p-2">
+            <option value="powersave" selected>powersave</option>
+          </select>
         </div>
       </div>
 
-      <!-- Actions Card -->
+      <!-- Actions -->
       <div class="bg-surface-container mb-4 p-4 rounded-xl card_border">
         <h2 data-i18n="actions.title" class="text-base font-semibold mb-4 text-on-surface"></h2>
-        <div class="space-y-2">
-          <button data-i18n="actions.edit_gamelist" id="edit_gamelist_btn" class="btn btn-block bg-surface hover:bg-surface-variant text-on-surface py-2" onclick="edit_gamelist.showModal()"></button>
-          <button data-i18n="actions.create_shortcut" id="create_shortcut_btn" class="btn btn-block bg-surface hover:bg-surface-variant text-on-surface py-2 hidden"></button>
-          <button data-i18n="actions.save_logs" id="save_log_btn" class="btn btn-block bg-surface hover:bg-surface-variant text-on-surface py-2"></button>
+        <button data-i18n="actions.edit_gamelist" id="edit_gamelist_btn" class="btn btn-block bg-primary hover:bg-primary text-on-primary py-1 mb-2" onclick="edit_gamelist.showModal()"></button>
+        <button data-i18n="actions.create_shortcut" id="create_shortcut_btn" class="btn btn-block bg-primary hover:bg-primary text-on-primary py-1 mb-2 hidden"></button>
+        <button data-i18n="actions.save_logs" id="save_log_btn" class="btn btn-block bg-primary hover:bg-primary text-on-primary py-1 mb-2"></button>
+      </div>
+
+      <!-- Donate Button -->
+      <button id="donate_btn" class="text-left text-on-surface bg-surface-container mb-4 p-4 rounded-xl w-full active:bg-secondary-container transition duration-300 card_border">
+        <h2 data-i18n="support.title" class="text-base font-semibold px-2 mb-1"></h2>
+        <p data-i18n="support.description" class="text-sm text-on-surface-variant px-2 mb-1"></p>
+      </button>
+
+      <!-- Modals -->
+      <dialog id="info_modal" class="modal">
+        <div class="modal-box bg-surface-container text-on-surface card_border">
+          <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+          </form>
+          <h3 id="info_modal_title" class="text-lg font-bold"></h3>
+          <p id="info_modal_desc" class="py-4"></p>
         </div>
-      </div>
+      </dialog>
 
-      <!-- Donate Card -->
-      <div class="bg-surface-container mb-4 p-4 rounded-xl card_border group hover:bg-surface-variant/20 transition-colors">
-        <button id="donate_btn" class="text-left w-full">
-          <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 flex items-center justify-center bg-surface rounded-lg">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-accent-gold">
-                <path d="M12 8V12M12 12V16M12 12H16M12 12H8M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div>
-              <h2 data-i18n="support.title" class="text-base font-semibold"></h2>
-              <p data-i18n="support.description" class="text-xs text-on-surface-variant mt-0.5"></p>
-            </div>
-          </div>
-          <div class="flex items-center justify-between">
-            <div class="text-xs text-on-surface-variant/70">
-              Click to support development
-            </div>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-on-surface-variant/50 group-hover:text-accent-gold transition-colors">
-              <path d="M9 6L15 12L9 18" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </button>
-      </div>
+      <dialog id="edit_gamelist" class="modal">
+        <div class="modal-box bg-surface-container text-on-surface card_border">
+          <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+          </form>
+          <h3 data-i18n="modal.edit_gamelist_title" class="text-lg font-bold"></h3>
+          <p data-i18n="modal.edit_gamelist_desc" class="py-4"></p>
+          <textarea id="gamelist_textarea" class="w-full p-2 text-sm text-on-surface bg-surface-dim border border-primary outline-none shadow-none rounded-md resize-none mb-2" rows="14"></textarea>
+          <form method="dialog">
+            <button data-i18n="modal.save_changes" id="save_gamelist_btn" class="btn btn-block btn-sm bg-primary text-on-primary font-normal mb-2 hover:bg-primary duration-300"></button>
+            <button data-i18n="modal.cancel_changes" class="btn btn-block btn-sm bg-secondary-container text-on-secondary-container font-normal hover:bg-secondary-container duration-300"></button>
+          </form>
+        </div>
+      </dialog>
+
+      <dialog id="custom_modal" class="modal">
+        <div class="modal-box bg-surface-container text-on-surface card_border">
+          <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+          </form>
+          <h3 id="custom_modal_title" class="text-lg font-bold"></h3>
+          <p id="custom_modal_desc" class="py-4"></p>
+        </div>
+      </dialog>
     </main>
-
-    <!-- Modals -->
-    <dialog id="info_modal" class="modal">
-      <div class="modal-box bg-surface-container text-on-surface card_border">
-        <form method="dialog">
-          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-        </form>
-        <h3 id="info_modal_title" class="text-lg font-bold"></h3>
-        <p id="info_modal_desc" class="py-4"></p>
-      </div>
-    </dialog>
-
-    <dialog id="edit_gamelist" class="modal">
-      <div class="modal-box bg-surface-container text-on-surface card_border">
-        <form method="dialog">
-          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-        </form>
-        <h3 data-i18n="modal.edit_gamelist_title" class="text-lg font-bold"></h3>
-        <p data-i18n="modal.edit_gamelist_desc" class="py-4"></p>
-        <textarea id="gamelist_textarea" class="w-full p-2 text-sm text-on-surface bg-surface-dim border border-primary outline-none shadow-none rounded-md resize-none mb-2" rows="14"></textarea>
-        <form method="dialog">
-          <button data-i18n="modal.save_changes" id="save_gamelist_btn" class="btn btn-block btn-sm bg-surface text-on-surface font-normal mb-2 hover:bg-surface-variant duration-300"></button>
-          <button data-i18n="modal.cancel_changes" class="btn btn-block btn-sm bg-surface text-on-surface font-normal hover:bg-surface-variant duration-300"></button>
-        </form>
-      </div>
-    </dialog>
-
-    <dialog id="custom_modal" class="modal">
-      <div class="modal-box bg-surface-container text-on-surface card_border">
-        <form method="dialog">
-          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-        </form>
-        <h3 id="custom_modal_title" class="text-lg font-bold"></h3>
-        <p id="custom_modal_desc" class="py-4"></p>
-      </div>
-    </dialog>
   </body>
 </html>
