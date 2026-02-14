@@ -50,12 +50,12 @@ if [ -d "./libs" ]; then
 fi
 
 # COPY PROFILER BINARIES
-if [ -d "scripts/profiler/libs" ]; then
-    [ -d "scripts/profiler/libs/armeabi-v7a" ] && \
-        cp -rf scripts/profiler/libs/armeabi-v7a/* module/libs/armeabi-v7a/ || true
+if [ -d "profiler/libs" ]; then
+    [ -d "profiler/libs/armeabi-v7a" ] && \
+        cp -rf profiler/libs/armeabi-v7a/* module/libs/armeabi-v7a/ || true
 
-    [ -d "scripts/profiler/libs/arm64-v8a" ] && \
-        cp -rf scripts/profiler/libs/arm64-v8a/* module/libs/arm64-v8a/ || true
+    [ -d "profiler/libs/arm64-v8a" ] && \
+        cp -rf profiler/libs/arm64-v8a/* module/libs/arm64-v8a/ || true
 fi
 
 # COPY NUSANTARA_UTILITY.SH
