@@ -1,8 +1,8 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := src/nusantara_profiler
-LOCAL_SRC_FILES := nusantara_profiler.c
+LOCAL_MODULE := nusantara_profiler
+LOCAL_SRC_FILES := src/nusantara_profiler.c
 LOCAL_CFLAGS := -DNDEBUG \
                 -Wall -Wextra \
                 -O3 \
