@@ -13,7 +13,7 @@ LOCAL_SRC_FILES := \
     ../src/preload_function.c \
     ../src/mlbb_handler.c
 
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/include
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/../include
 
 LOCAL_CFLAGS := -DNDEBUG -Wall -Wextra -Werror \
                 -pedantic-errors -Wpedantic \
