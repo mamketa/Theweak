@@ -47,8 +47,9 @@ jobs:
       run: ndk-build
   
     - name: Build Profiler
-      run: ndk-build
-
+      working-directory: ./profiler
+      run: ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=./Android.mk
+  
     - name: Build WebUI
       working-directory: ./webui
       run: |
