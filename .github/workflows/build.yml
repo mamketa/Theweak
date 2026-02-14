@@ -44,12 +44,10 @@ jobs:
       uses: oven-sh/setup-bun@v2.0.2
 
     - name: Build Nusantara Daemon
-      working-directory: ./daemon
-      run: ndk-build -j$(nproc)
+      run: ndk-build NDK_PROJECT_PATH=./daemon -j$(nproc)
 
     - name: Build Nusantara Profiler
-      working-directory: ./profiler
-      run: ndk-build -j$(nproc)
+      run: ndk-build NDK_PROJECT_PATH=./profiler -j$(nproc)
 
     - name: Build WebUI
       working-directory: ./webui
