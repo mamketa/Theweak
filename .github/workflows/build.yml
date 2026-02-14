@@ -12,7 +12,6 @@ on:
       - '.github/workflows/build.yml'
       - '.github/scripts/**'
       - 'jni/**'
-      - 'scripts/profiler/**'
       - 'scripts/**'
       - 'module/**'
       - "preloader/**"
@@ -46,6 +45,9 @@ jobs:
     - name: Build Nusantara JNI
       run: ndk-build
 
+    - name: Build Profiler
+      run: ndk-build -j$(nproc) NDK_PROJECT_PATH=scripts/profiler
+  
     - name: Build Profiler
       run: ndk-build
 
