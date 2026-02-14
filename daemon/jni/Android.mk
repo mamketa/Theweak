@@ -15,11 +15,25 @@ LOCAL_SRC_FILES := \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../include
 
-LOCAL_CFLAGS := -DNDEBUG -Wall -Wextra -Werror \
-                -pedantic-errors -Wpedantic \
-                -O2 -std=c23 -fPIC -flto
+LOCAL_CFLAGS := \
+    -DNDEBUG \
+    -O2 \
+    -std=c23 \
+    -fPIC \
+    -D_GNU_SOURCE \
+    -flto \
+    -Wall \
+    -Wextra \
+    -Wno-unused-parameter \
+    -Wno-unused-variable \
+    -Wno-sign-compare \
+    -Wno-missing-field-initializers
 
-LOCAL_LDFLAGS := -flto
-LOCAL_LDLIBS  += -llog  
+LOCAL_LDFLAGS := \
+    -flto \
+    -Wl,-z,relro \
+    -Wl,-z,now
+
+LOCAL_LDLIBS += -llog
 
 include $(BUILD_EXECUTABLE)

@@ -7,9 +7,10 @@ LOCAL_SRC_FILES := ../src/nusantara_profiler.c
 LOCAL_CFLAGS := \
     -DNDEBUG \
     -O2 \
-    -std=gnu17 \
+    -std=c23 \
     -fPIC \
     -D_GNU_SOURCE \
+    -flto \
     -Wall \
     -Wextra \
     -Wno-unused-parameter \
@@ -17,9 +18,10 @@ LOCAL_CFLAGS := \
     -Wno-sign-compare
 
 LOCAL_LDFLAGS := \
+    -flto \
     -Wl,-z,relro \
     -Wl,-z,now
-    
-LOCAL_LDLIBS  += -llog  
+
+LOCAL_LDLIBS += -llog
 
 include $(BUILD_EXECUTABLE)
