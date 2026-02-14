@@ -45,13 +45,17 @@ jobs:
 
     # Build Nusantara Daemon
     - name: Build Nusantara Daemon
-      working-directory: ./daemon
-      run: ndk-build NDK_PROJECT_PATH=.
+      run: ndk-build \
+        NDK_PROJECT_PATH=. \
+        APP_BUILD_SCRIPT=daemon/Android.mk \
+        NDK_APPLICATION_MK=daemon/Application.mk
 
     # Build Nusantara Profiler
-    - name: Build Profiler
-      working-directory: ./profiler
-      run: ndk-build NDK_PROJECT_PATH=.
+    - name: Build Nusantara Profiler
+      run: ndk-build \
+        NDK_PROJECT_PATH=. \
+        APP_BUILD_SCRIPT=profiler/Android.mk \
+        NDK_APPLICATION_MK=profiler/Application.mk
 
     # Build WebUI
     - name: Build WebUI
