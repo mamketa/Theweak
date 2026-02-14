@@ -15,19 +15,11 @@ LOCAL_SRC_FILES := \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/include
 
-LOCAL_CFLAGS := -DNDEBUG \
-                -Wall -Wextra \
-                -O3 \
-                -std=c17 \
-                -ffunction-sections \
-                -fdata-sections \
-                -fomit-frame-pointer \
-                -flto
+LOCAL_CFLAGS := -DNDEBUG -Wall -Wextra -Werror \
+                -pedantic-errors -Wpedantic \
+                -O2 -std=c23 -fPIC -flto
 
-LOCAL_LDFLAGS := -Wl,--gc-sections \
-                 -Wl,--strip-all \
-                 -flto
-
-LOCAL_LDLIBS := -llog
+LOCAL_LDFLAGS := -flto
+LOCAL_LDLIBS  += -llog  
 
 include $(BUILD_EXECUTABLE)
