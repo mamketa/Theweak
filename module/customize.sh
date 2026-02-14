@@ -32,17 +32,7 @@ abort_unsupported_arch() {
 	ui_print "*********************************************************"
 	ui_print "! Unsupported Architecture Detected"
 	ui_print "! This device architecture is not supported by Nusantara Tweaks."
-	ui_print "! Supported architecture: arm64-v8a only."
-	abort "*********************************************************"
-}
-
-abort_roasted_32bit() {
-	ui_print "*********************************************************"
-	ui_print "! 32-bit Device Detected (armeabi-v7a)"
-	ui_print "! Seriously? In 2026?"
-	ui_print "! Nusantara Tweaks refuses to run on ancient hardware."
-	ui_print "! Please upgrade your device and come back stronger."
-	ui_print "! The future is 64-bit. This device is not."
+	ui_print "! Supported architecture: arm64-v8a and armeabi-v7a only."
 	abort "*********************************************************"
 }
 
@@ -127,7 +117,8 @@ arm64)
 	ui_print "- Architecture supported: arm64-v8a"
 	;;
 arm)
-	abort_roasted_32bit
+	ARCH_TMP="armeabi-v7a"
+	ui_print "- Architecture supported: armeabi-v7a"
 	;;
 *)
 	abort_unsupported_arch
@@ -140,13 +131,14 @@ extract "$ZIPFILE" 'module.prop' "$MODPATH"
 extract "$ZIPFILE" 'service.sh' "$MODPATH"
 extract "$ZIPFILE" 'uninstall.sh' "$MODPATH"
 extract "$ZIPFILE" 'action.sh' "$MODPATH"
-extract "$ZIPFILE" 'system/bin/nusantara_profiler' "$MODPATH"
 extract "$ZIPFILE" 'system/bin/nusantara_utility' "$MODPATH"
 extract "$ZIPFILE" 'system/bin/sys.npreloader' "$MODPATH"
 extract "$ZIPFILE" velocity.banner.avif "$MODPATH"
 
 # Extract Architecture Binaries
 extract "$ZIPFILE" "libs/$ARCH_TMP/sys.nusaservice" "$TMPDIR"
+extract "$ZIPFILE" "libs/$ARCH_TMP/nusantara_profiler" "$TMPDIR"
+
 cp "$TMPDIR/libs/$ARCH_TMP/"* "$MODPATH/system/bin"
 ln -sf "$MODPATH/system/bin/sys.nusaservice" "$MODPATH/system/bin/nusantara_log"
 rm -rf "$TMPDIR/libs"
@@ -217,10 +209,10 @@ case "$((RANDOM % 9 + 1))" in
 1) ui_print "- Slow progress is still progress." ;;
 2) ui_print "- Tough day? That’s okay." ;;
 3) ui_print "- Feeling tired means you’re moving." ;;
-4) ui_print "- Little by little, keep going." ;;
-5) ui_print "- Not every day has to be perfect." ;;
-6) ui_print "- Resting is part of the journey." ;;
-7) ui_print "- Ordinary days still matter." ;;
-8) ui_print "- Nusantara still has many stories." ;;
-9) ui_print "- Wen donate? 🗿" ;;
+4) ui_print "- Wen donate? 🗿" ;;
+5) ui_print "- Little by little, keep going." ;;
+6) ui_print "- Not every day has to be perfect." ;;
+7) ui_print "- Resting is part of the journey." ;;
+8) ui_print "- Ordinary days still matter." ;;
+9) ui_print "- Nusantara still has many stories." ;;
 esac

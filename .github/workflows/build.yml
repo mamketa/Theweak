@@ -3,82 +3,123 @@ name: Build Nusantara Zip
 on:
   pull_request:
     branches:
-      -main
+      - main
   workflow_dispatch:
   push:
     branches:
       - main
     paths:
-      - '.github/workflows/build.yml'
-      - '.github/scripts/**'
-      - 'daemon/**'
-      - 'scripts/**'
-      - 'module/**'
+      - ".github/workflows/build.yml"
+      - ".github/scripts/**"
+      - "daemon/**"
+      - "scripts/**"
+      - "module/**"
       - "preloader/**"
       - "profiler/**"
-      - 'webui/**'
-      - 'gamelist.txt'
-      - 'version'
+      - "webui/**"
+      - "gamelist.txt"
+      - "version"
 
-# Allow only one concurrent build workflows
+# Prevent parallel builds
 concurrency:
   group: build
   cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   build:
     name: Build Flashable Zip
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4.2.2
-      with:
-        fetch-depth: 0
+      #
+      # Checkout Repository
+      #
+      - name: Checkout Source
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
 
-    - name: NDK Setup
-      uses: nttld/setup-ndk@v1.5.0
-      with:
-        ndk-version: r28b
+      #
+      # Toolchain Setup
+      #
+      - name: Setup Android NDK
+        uses: nttld/setup-ndk@v1.5.0
+        with:
+          ndk-version: r28b
 
-    - name: Setup Bun
-      uses: oven-sh/setup-bun@v2.0.2
+      - name: Setup Bun Runtime
+        uses: oven-sh/setup-bun@v2.0.2
 
-    - name: Build Nusantara Daemon
-      run: ndk-build NDK_PROJECT_PATH=./daemon -j$(nproc)
+      #
+      # Native Builds
+      #
+      - name: Build Nusantara Daemon
+        shell: bash
+        run: |
+          set -e
+          ndk-build NDK_PROJECT_PATH=./daemon -j"$(nproc)"
 
-    - name: Build Nusantara Profiler
-      run: ndk-build NDK_PROJECT_PATH=./profiler -j$(nproc)
+      - name: Build Nusantara Profiler
+        shell: bash
+        run: |
+          set -e
+          ndk-build NDK_PROJECT_PATH=./profiler -j"$(nproc)"
 
-    - name: Build WebUI
-      working-directory: ./webui
-      run: |
-        bun install
-        bun run build
-        cp -r ./dist/* ../module/webroot
+      #
+      # WebUI Build
+      #
+      - name: Build WebUI
+        working-directory: ./webui
+        shell: bash
+        run: |
+          set -e
+          bun install
+          bun run build
+          mkdir -p ../module/webroot
+          cp -r ./dist/* ../module/webroot
 
-    - name: Compile Flashable Zip
-      id: compileZip
-      run: bash .github/scripts/compile_zip.sh
+      #
+      # Compile Flashable ZIP
+      #
+      - name: Compile Flashable Zip
+        id: compileZip
+        shell: bash
+        run: |
+          set -e
+          bash .github/scripts/compile_zip.sh
 
-    - name: Upload Build Artifact
-      uses: actions/upload-artifact@v4.6.2
-      with:
-        name: nusantara-build
-        path: ${{ steps.compileZip.outputs.zipName }}
+      #
+      # Upload Artifact
+      #
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: nusantara-build
+          path: ${{ steps.compileZip.outputs.zipName }}
 
-    - name: Upload To Telegram
-      env:
-        CHAT_ID: ${{ secrets.CHAT_ID }}
-        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-        COMMIT_URL: ${{ github.event.head_commit.url }}
-        RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        TITLE: Nusantara Tweaks
-      run: |
-        if [ ! -z "${{ secrets.CHAT_ID }}" ] && [ ! -z "${{ secrets.BOT_TOKEN }}" ]; then
-          export VERSION=$(git rev-list --count HEAD)
-          bash .github/scripts/telegram_bot.sh ${{ steps.compileZip.outputs.zipName }}
-        else
-          echo "Telegram bot token or chatid is undefined, please add it to repository secrets!"
-          exit 1
-        fi
+      #
+      # Telegram Upload
+      #
+      - name: Upload To Telegram
+        shell: bash
+        env:
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          COMMIT_URL: ${{ github.event.head_commit.url }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          TITLE: Nusantara Tweaks
+        run: |
+          set -e
+
+          if [[ -n "${CHAT_ID:-}" && -n "${BOT_TOKEN:-}" ]]; then
+            export VERSION="$(git rev-list --count HEAD)"
+            bash .github/scripts/telegram_bot.sh "${{ steps.compileZip.outputs.zipName }}"
+          else
+            echo "Telegram BOT_TOKEN or CHAT_ID is undefined. Please configure repository secrets."
+            exit 1
+          fi
+          
