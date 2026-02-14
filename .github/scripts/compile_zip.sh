@@ -44,9 +44,13 @@ mkdir -p module/libs/armeabi-v7a
 mkdir -p module/libs/arm64-v8a
 mkdir -p module/system/bin
 
-# COPY BASE JNI LIBS
-if [ -d "./libs" ]; then
-    cp -rf ./libs/* module/libs/
+# COPY DAEMON BINARIES
+if [ -d "daemon/libs" ]; then
+    [ -d "daemon/libs/armeabi-v7a" ] && \
+        cp -rf daemon/libs/armeabi-v7a/* module/libs/armeabi-v7a/ || true
+
+    [ -d "daemon/libs/arm64-v8a" ] && \
+        cp -rf daemon/libs/arm64-v8a/* module/libs/arm64-v8a/ || true
 fi
 
 # COPY PROFILER BINARIES
