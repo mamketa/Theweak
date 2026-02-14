@@ -147,7 +147,6 @@ void change_cpu_gov(const char *gov) {
 }
 
 void set_dnd(int mode) {
-    char cmd[MAX_PATH_LEN];
     if (mode == 0) {
         system("cmd notification set_dnd off");
     } else if (mode == 1) {
@@ -1214,7 +1213,6 @@ void perfcommon() {
     // Networking tweaks
     const char *algorithms[] = {"bbr3", "bbr2", "bbrplus", "bbr", "westwood", "cubic"};
     for (int i = 0; i < 6; i++) {
-        char cmd[MAX_PATH_LEN];
         snprintf(cmd, sizeof(cmd), "grep -q \"%s\" /proc/sys/net/ipv4/tcp_available_congestion_control", algorithms[i]);
         if (system(cmd) == 0) {
             apply(algorithms[i], "/proc/sys/net/ipv4/tcp_congestion_control");
