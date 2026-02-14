@@ -12,6 +12,7 @@ on:
       - '.github/workflows/build.yml'
       - '.github/scripts/**'
       - 'jni/**'
+      - 'scripts/profiler/**'
       - 'scripts/**'
       - 'module/**'
       - "preloader/**"
@@ -43,10 +44,10 @@ jobs:
       uses: oven-sh/setup-bun@v2.0.2
 
     - name: Build Nusantara JNI
-      run: ndk-build -j$(nproc) NDK_PROJECT_PATH=jni
+      run: ndk-build
 
     - name: Build Profiler
-      run: ndk-build -j$(nproc) NDK_PROJECT_PATH=scripts/profiler
+      run: ndk-build
 
     - name: Build WebUI
       working-directory: ./webui
