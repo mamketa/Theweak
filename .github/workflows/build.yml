@@ -13,7 +13,6 @@ on:
       - '.github/scripts/**'
       - 'jni/**'
       - 'scripts/**'
-      - 'profiler/**'
       - 'module/**'
       - "preloader/**"
       - 'webui/**'
@@ -48,7 +47,7 @@ jobs:
   
     - name: Build Profiler
       working-directory: ./profiler
-      run: ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=./Android.mk
+      run: ndk-build
   
     - name: Build WebUI
       working-directory: ./webui
