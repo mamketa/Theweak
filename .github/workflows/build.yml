@@ -43,7 +43,10 @@ jobs:
       uses: oven-sh/setup-bun@v2.0.2
 
     - name: Build Nusantara JNI
-      run: ndk-build
+      run: ndk-build -j$(nproc) NDK_PROJECT_PATH=jni
+
+    - name: Build Profiler
+      run: ndk-build -j$(nproc) NDK_PROJECT_PATH=scripts/profiler
 
     - name: Build WebUI
       working-directory: ./webui
