@@ -549,6 +549,10 @@ void mediatek_performance() {
     // Disable GED KPI
     apply("0", "/sys/module/sspm_v3/holders/ged/parameters/is_GED_KPI_enabled");
     
+    // MEDIATEK GED CORE
+    apply("1", "/sys/module/ged/parameters/gpu_dvfs_enable");
+    apply("0", "/sys/module/ged/parameters/is_GED_KPI_enabled");
+    
     // GPU Frequency
     if (LITE_MODE == 0) {
         if (file_exists("/proc/gpufreqv2")) {
@@ -662,6 +666,12 @@ void snapdragon_performance() {
     
     // Force GPU clock on
     apply("1", "/sys/class/kgsl/kgsl-3d0/force_clk_on");
+    
+    // Disable GPU Performance Counters
+    apply("0", "/sys/class/kgsl/kgsl-3d0/perfcounter");
+
+    // Enable Adreno Boost
+    apply("1", "/sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost");
 }
 
 void exynos_performance() {
@@ -849,6 +859,10 @@ void mediatek_normal() {
     write_file("0", "/proc/gpufreq/gpufreq_opp_freq");
     write_file("-1", "/proc/gpufreqv2/fix_target_opp_index");
     
+    // MEDIATEK GED CORE
+    apply("1", "/sys/module/ged/parameters/gpu_dvfs_enable");
+    apply("1", "/sys/module/ged/parameters/is_GED_KPI_enabled");
+    
     // Reset min freq via GED
     int min_oppfreq;
     if (file_exists("/proc/gpufreqv2/gpu_working_opp_table")) {
@@ -920,6 +934,12 @@ void snapdragon_normal() {
     
     // Free GPU clock on/off
     apply("0", "/sys/class/kgsl/kgsl-3d0/force_clk_on");
+    
+    // Disable GPU Performance Counters
+    apply("0", "/sys/class/kgsl/kgsl-3d0/perfcounter");
+
+    // Disable Adreno Boost
+    apply("0", "/sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost");
 }
 
 void exynos_normal() {
@@ -1083,6 +1103,18 @@ void mediatek_powersave() {
 void snapdragon_powersave() {
     // GPU Frequency
     devfreq_min_perf("/sys/class/kgsl/kgsl-3d0/devfreq");
+    
+    // Enable back GPU Bus split
+    apply("1", "/sys/class/kgsl/kgsl-3d0/bus_split");
+    
+    // Free GPU clock on/off
+    apply("0", "/sys/class/kgsl/kgsl-3d0/force_clk_on");
+    
+    // Disable GPU Performance Counters
+    apply("0", "/sys/class/kgsl/kgsl-3d0/perfcounter");
+
+    // Disable Adreno Boost
+    apply("0", "/sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost");
 }
 
 void exynos_powersave() {

@@ -350,3 +350,9 @@ getAndroidSDK();
 getServiceState();
 fetchCPUGovernors();
 setupShortcut();
+
+const bgDiv = document.getElementById('daemon_bg_image');
+if (bgDiv) {
+  const img = document.getElementById('nusantara_logo');
+  if (img && img.src) bgDiv.style.setProperty('--daemon-bg', `url(${img.src})`);
+}

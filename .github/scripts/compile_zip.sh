@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2035
-
 set -euo pipefail
 
 # Ensure running in GitHub Actions
@@ -27,7 +26,6 @@ need_integrity=(
     "module/module.prop"
     "module/gamelist.txt"
 )
-
 
 # Version Info
 if [[ ! -f version ]]; then
@@ -84,7 +82,7 @@ find module/system/bin -maxdepth 1 -type f -name "*.sh" \
     -exec bash -c 'mv -- "$1" "${1%.sh}"' _ {} \;
 
 # Prepare zip name
-zipName="Nusantara-${version}-${release_code}-beta.zip"
+zipName="Nusantara-${version}-${release_code}.zip"
 echo "zipName=${zipName}" >> "$GITHUB_OUTPUT"
 
 # Generate SHA256 for integrity check

@@ -71,7 +71,7 @@ jobs:
       #
       # WebUI Build
       #
-      - name: Build WebUI
+      - name: Build Nusantara WebUI
         working-directory: ./webui
         shell: bash
         run: |

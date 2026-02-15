@@ -79,6 +79,7 @@ com.devsisters.ck
 com.dolphinemu.dolphinemu
 com.drivezone.car.race.game
 com.dts.freefiremax
+com.dts.freefireth
 com.ea.gp.apexlegendsmobilefps
 com.ea.gp.nfsm
 com.epicgames.fortnite
