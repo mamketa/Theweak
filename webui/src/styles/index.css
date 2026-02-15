@@ -1,4 +1,4 @@
-/* styles/index.css – modern glass + preserved bindings */
+/* styles/index.css - Fixed without @apply peer conflict */
 @import url('https://mui.kernelsu.org/internal/insets.css');
 @import url('https://mui.kernelsu.org/internal/colors.css');
 
@@ -27,10 +27,11 @@
   --outline: #3a3a3f;
 }
 
-/* ----- depth shadows & glass ----- */
+/* Depth shadows */
 .depth-shadow {
   box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.08) inset;
 }
+
 .depth-shadow-lg {
   box-shadow: 0 16px 28px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 175, 55, 0.1) inset;
 }
@@ -42,55 +43,111 @@
   transition: border-color 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
-/* daemon background image – updated via js (logo remains img) */
+/* Daemon background */
 #daemon_bg_image {
   background-image: var(--daemon-bg, url('/nusantara_happy.avif'));
   filter: blur(2px) brightness(0.6);
   transition: background-image 0.2s;
 }
 
-/* ----- modern toggles (class added, peer structure still works) ----- */
+/* Modern toggle - completely rewritten without @apply */
 .toggle-modern {
-  @apply peer h-7 w-12 rounded-full border border-outline/50 bg-surface-variant/60 backdrop-blur-sm after:absolute after:left-[2px] after:top-[2px] after:h-6 after:w-6 after:rounded-full after:border after:border-4 after:border-surface-variant after:bg-outline after:transition-all after:duration-300 after:content-[''] peer-checked:border-primary peer-checked:bg-primary peer-checked:after:translate-x-5 peer-checked:after:border-on-primary peer-checked:after:bg-on-primary;
-  transition: background 0.2s cubic-bezier(0.34, 1.2, 0.64, 1);
+  position: relative;
+  display: inline-block;
+  width: 2.75rem;
+  height: 1.5rem;
+  background-color: var(--surface-variant);
+  border-radius: 9999px;
+  border: 1px solid var(--outline);
+  transition: background-color 0.2s cubic-bezier(0.34, 1.2, 0.64, 1);
 }
 
-/* action buttons */
-.action-btn {
-  @apply py-3.5 px-4 rounded-xl bg-gradient-to-b from-[#1f1f23] to-[#161619] text-on-surface border border-primary/20 font-medium transition-all duration-200;
-  box-shadow: 0 4px 10px -4px rgba(0,0,0,0.6);
+.toggle-modern::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: var(--outline);
+  border-radius: 9999px;
+  border: 4px solid var(--surface-variant);
+  transition: transform 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
 }
+
+.peer:checked + label + .toggle-modern,
+.peer:checked + .toggle-modern {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.peer:checked + label + .toggle-modern::after,
+.peer:checked + .toggle-modern::after {
+  transform: translateX(1.25rem);
+  background-color: var(--on-primary);
+  border-color: var(--on-primary);
+}
+
+/* Action buttons */
+.action-btn {
+  padding: 0.875rem 1rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(180deg, #1f1f23 0%, #161619 100%);
+  color: var(--on-surface);
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 28%, transparent);
+  font-weight: 500;
+  box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+
 .action-btn:hover {
-  @apply from-[#26262b] to-[#1a1a1e];
+  background: linear-gradient(180deg, #26262b 0%, #1a1a1e 100%);
   transform: scale(1.01);
 }
+
 .action-btn:active {
   transform: scale(0.98);
 }
 
-/* donate expand panel */
+/* Donate expand panel */
 .donate-expand-panel {
   animation: slideFade 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
 }
+
 @keyframes slideFade {
   0% { opacity: 0; transform: translateY(-8px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* preserve original element styles but modernised */
+/* Typography */
 h1, h2, h3 {
   letter-spacing: 0.3px;
 }
-h1 { color: var(--accent-gold); }
-.text-primary { color: var(--accent-gold) !important; }
-.text-on-surface { color: var(--on-surface); }
-.text-on-surface-variant { color: var(--on-surface-variant); }
 
+h1 {
+  color: var(--accent-gold);
+}
+
+.text-primary {
+  color: var(--accent-gold) !important;
+}
+
+.text-on-surface {
+  color: var(--on-surface);
+}
+
+.text-on-surface-variant {
+  color: var(--on-surface-variant);
+}
+
+/* Button base */
 .btn {
   border-radius: 14px;
   transition: all 0.2s ease;
   box-shadow: none;
 }
+
+/* Select styling */
 select, .select {
   appearance: none;
   border-radius: 14px;
@@ -103,13 +160,19 @@ select, .select {
   background-position: right 0.7rem center;
   background-size: 1.2rem;
 }
-select:focus {
+
+select:focus, .select:focus {
   outline: none;
   border-color: var(--accent-gold);
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-gold) 20%, transparent);
 }
-select option { background-color: #141416; color: #f2e6c9; }
 
+select option {
+  background-color: #141416;
+  color: #f2e6c9;
+}
+
+/* Textarea */
 textarea {
   border-radius: 14px;
   background-color: #121214;
@@ -117,54 +180,86 @@ textarea {
   border: 1px solid color-mix(in srgb, var(--accent-gold) 25%, transparent);
   transition: border 0.2s;
 }
+
 textarea:focus {
   border-color: var(--accent-gold) !important;
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-gold) 20%, transparent);
+  outline: none;
 }
 
-/* ----- preserve all original id styles but enhance ----- */
-#edit_gamelist_btn, #create_shortcut_btn, #save_log_btn {
+/* Preserve original ID styles */
+#edit_gamelist_btn,
+#create_shortcut_btn,
+#save_log_btn {
   background: linear-gradient(180deg, #1f1f23, #161619) !important;
   color: var(--on-surface) !important;
   border: 1px solid color-mix(in srgb, var(--accent-gold) 28%, transparent);
 }
-#edit_gamelist_btn:hover, #create_shortcut_btn:hover, #save_log_btn:hover {
+
+#edit_gamelist_btn:hover,
+#create_shortcut_btn:hover,
+#save_log_btn:hover {
   background: linear-gradient(180deg, #26262b, #1a1a1e) !important;
 }
+
 #save_gamelist_btn {
   background: linear-gradient(180deg, #1f1f23, #161619) !important;
   color: var(--on-surface) !important;
   border: 1px solid color-mix(in srgb, var(--accent-gold) 35%, transparent);
 }
+
 #edit_gamelist .btn.bg-secondary-container {
   background: linear-gradient(180deg, #18181c, #121215) !important;
   color: var(--on-surface-variant) !important;
   border: 1px solid color-mix(in srgb, var(--accent-gold) 18%, transparent);
 }
+
 .modal-box textarea {
   background: linear-gradient(180deg, #151518, #101012) !important;
   color: var(--on-surface) !important;
   border: 1px solid color-mix(in srgb, var(--accent-gold) 28%, transparent) !important;
 }
+
 #donate_btn {
   background: var(--surface-container) !important;
   border: 1px solid color-mix(in srgb, var(--accent-gold) 22%, transparent);
   transition: all 0.2s;
 }
+
 #donate_btn:hover {
   border-color: color-mix(in srgb, var(--accent-gold) 45%, transparent);
   background: color-mix(in srgb, var(--surface-container) 95%, var(--accent-gold)) !important;
 }
 
-/* modal refinement */
+/* Modal styling */
 .modal-box {
   border-radius: 24px;
   border: 1px solid color-mix(in srgb, var(--accent-gold) 25%, transparent);
   background: var(--surface-container);
   box-shadow: 0 24px 48px -16px black;
 }
-html, body {
+
+html,
+body {
   touch-action: pan-x pan-y;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Hidden utility */
+.hidden {
+  display: none !important;
+}
+
+/* Peer sr-only remains functional */
+.peer.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

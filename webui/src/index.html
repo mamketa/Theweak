@@ -14,7 +14,7 @@
 
   <body class="bg-surface flex justify-center min-h-screen root_layout">
     <main class="p-3 text-sm w-full max-w-2xl">
-      <!-- Header (unchanged structure, only visual polish via css) -->
+      <!-- Header -->
       <div class="flex justify-between items-center mb-8 text-on-surface">
         <h1 data-i18n="common.module" class="text-lg font-semibold tracking-wide"></h1>
         <div>
@@ -22,26 +22,22 @@
         </div>
       </div>
 
-      <!-- ========== DAEMON STATUS CARD – GLASS BACKGROUND, DYNAMIC LOGO ========== -->
+      <!-- Daemon Status Card - Glass Background -->
       <div id="daemon_card" class="relative mb-8 p-0 rounded-2xl overflow-hidden card_border depth-shadow">
-        <!-- glass background overlay (dynamic logo sits on top) -->
         <div class="absolute inset-0 bg-cover bg-center z-0 opacity-30" id="daemon_bg_image"></div>
         <div class="absolute inset-0 bg-gradient-to-br from-surface/80 via-surface/70 to-surface/80 backdrop-blur-md z-0"></div>
         
-        <!-- content - same ids, fully functional -->
         <div class="relative z-10 p-5 flex items-start justify-between">
           <div>
             <span id="daemon_status" class="text-2xl font-semibold text-on-surface drop-shadow-sm">Loading</span>
             <span id="daemon_pid" class="text-xs mt-2 block text-on-surface-variant/80">One moment please...</span>
           </div>
-          <!-- image element untouched – still changes via js -->
           <img id="nusantara_logo" class="w-20 h-20 object-contain drop-shadow-lg" />
         </div>
-        <!-- subtle inner border -->
         <div class="absolute inset-x-4 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
       </div>
 
-      <!-- ========== DEVICE & MODULE INFO – ENHANCED ROW ALIGNMENT ========== -->
+      <!-- Device & Module Info -->
       <div class="bg-surface-container/80 backdrop-blur-sm mb-8 p-5 rounded-2xl text-on-surface card_border depth-shadow">
         <!-- module version -->
         <div class="flex items-start gap-4 py-3 border-b border-primary/10 last:border-0">
@@ -119,7 +115,7 @@
         </div>
       </div>
 
-      <!-- ========== SETTINGS – MODERN TOGGLES, CLEAN LAYOUT ========== -->
+      <!-- Settings -->
       <div class="bg-surface-container/80 backdrop-blur-sm mb-8 p-5 rounded-2xl text-on-surface card_border depth-shadow">
         <h2 data-i18n="settings.title" class="text-base font-semibold mb-4 tracking-wide"></h2>
 
@@ -187,7 +183,7 @@
         </div>
       </div>
 
-      <!-- ========== ACTIONS – UNIFIED BUTTON STYLES ========== -->
+      <!-- Actions -->
       <div class="bg-surface-container/80 backdrop-blur-sm mb-8 p-5 rounded-2xl card_border depth-shadow">
         <h2 data-i18n="actions.title" class="text-base font-semibold mb-4 text-on-surface tracking-wide"></h2>
         <div class="space-y-3">
@@ -197,20 +193,19 @@
         </div>
       </div>
 
-      <!-- ========== DONATE BUTTON – CARD EXPANDABLE (ID UNCHANGED) ========== -->
+      <!-- Donate Button with Expandable Panel -->
       <div class="relative mb-6">
         <button id="donate_btn" class="donate-trigger w-full text-left bg-surface-container/80 backdrop-blur-sm p-5 rounded-2xl card_border depth-shadow transition-all duration-300">
           <h2 data-i18n="support.title" class="text-base font-semibold tracking-wide"></h2>
           <p data-i18n="support.description" class="text-sm text-on-surface-variant mt-1"></p>
         </button>
-        <!-- expandable panel (hidden by default) toggled via js on same button -->
         <div id="donateExpandPanel" class="donate-expand-panel mt-2 p-5 rounded-2xl bg-surface-container/90 backdrop-blur-md border border-primary/20 hidden">
-          <p class="text-sm text-on-surface mb-3" data-i18n="support.expand_text">Development is community-driven. Your support keeps the project alive.</p>
+          <p class="text-sm text-on-surface mb-3">Development is community-driven. Your support keeps the project alive.</p>
           <button class="w-full py-3 rounded-xl bg-primary text-on-primary font-medium" id="donate_inner_btn">☕  Donate</button>
         </div>
       </div>
 
-      <!-- ========== MODALS (unchanged structure, ids preserved) ========== -->
+      <!-- Modals -->
       <dialog id="info_modal" class="modal">
         <div class="modal-box bg-surface-container text-on-surface card_border depth-shadow-lg">
           <form method="dialog"><button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button></form>
@@ -241,7 +236,6 @@
       </dialog>
     </main>
 
-    <!-- tiny inline script to handle donate expand (no id/function override) -->
     <script>
       (function() {
         const donateBtn = document.getElementById('donate_btn');
@@ -261,4 +255,3 @@
     </script>
   </body>
 </html>
-
