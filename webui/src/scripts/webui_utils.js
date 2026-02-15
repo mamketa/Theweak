@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+// scripts/webui_utils.js - Unchanged functionality
 import { exec, toast } from 'kernelsu';
 import nusantaraHappy from '/nusantara_happy.avif';
 import nusantaraSleeping from '/nusantara_sleeping.avif';
@@ -77,11 +78,9 @@ const openInfoModal = (button) => {
   const titleKey = button.getAttribute('data-title-key');
   const descKey = button.getAttribute('data-desc-key');
   
-  // Update modal content
   document.getElementById('info_modal_title').textContent = getTranslation(titleKey);
   document.getElementById('info_modal_desc').textContent = getTranslation(descKey);
   
-  // Show modal
   info_modal.showModal();
 };
 
@@ -126,22 +125,12 @@ const getCurrentProfile = async () => {
   }
 
   switch(output) {
-    case "0":
-      profile = "Initializing";
-      break;
-    case "1":
-      profile = "Performance";
-      break;
-    case "2":
-      profile = "Normal";
-      break;
-    case "3":
-      profile = "Powersave";
-      break;
-    default:
-      profile = "Unknown";
-      break;
-    }
+    case "0": profile = "Initializing"; break;
+    case "1": profile = "Performance"; break;
+    case "2": profile = "Normal"; break;
+    case "3": profile = "Powersave"; break;
+    default: profile = "Unknown"; break;
+  }
     
   document.getElementById('nusantara_profile').textContent = profile;
 };
@@ -158,25 +147,13 @@ const getChipset = async () => {
   }
   
   switch(soc) {
-    case "1":
-      brand = "MediaTek";
-      break;
-    case "2":
-      brand = "Snapdragon";
-      break;
-    case "3":
-      brand = "Exynos";
-      break;
-    case "4":
-      brand = "Unisoc";
-      break;
-    case "5":
-      brand = "Tensor";
-      break;
-    default:
-      brand = "Unknown";
-      break;
-    }
+    case "1": brand = "MediaTek"; break;
+    case "2": brand = "Snapdragon"; break;
+    case "3": brand = "Exynos"; break;
+    case "4": brand = "Unisoc"; break;
+    case "5": brand = "Tensor"; break;
+    default: brand = "Unknown"; break;
+  }
     
   document.getElementById('chipset_name').textContent = `${brand} ${chipset}`;
 };
@@ -202,6 +179,7 @@ const getServiceState = async () => {
   const status = document.getElementById('daemon_status');
   const image = document.getElementById('nusantara_logo');
   const pidElement = document.getElementById('daemon_pid');
+  const bgDiv = document.getElementById('daemon_bg_image');
 
   const pid = await runCommand('/system/bin/toybox pidof sys.nusaservice || echo null');
   pidElement.textContent = `Daemon PID: ${pid}`;
@@ -209,11 +187,12 @@ const getServiceState = async () => {
   if (pid === "null") {
     status.textContent = "Stopped 💤";
     image.src = nusantaraSleeping;
-    return;
+    if (bgDiv) bgDiv.style.setProperty('--daemon-bg', `url(${nusantaraSleeping})`);
+  } else {
+    status.textContent = "Working ✨";
+    image.src = nusantaraHappy;
+    if (bgDiv) bgDiv.style.setProperty('--daemon-bg', `url(${nusantaraHappy})`);
   }
-
-  status.textContent = "Working ✨";
-  image.src = nusantaraHappy;
 };
 
 /* ======================== CONFIGURATION ======================== */
@@ -288,7 +267,6 @@ const fetchCPUGovernors = async () => {
     } else {
       default_cpu_gov = fileInterface.read(`${configPath}/default_cpu_gov`).trim();
     }
-
     powersave_cpu_gov = fileInterface.read(`${configPath}/powersave_cpu_gov`).trim();
   } else {
     default_cpu_gov = await runCommand(`[ -f ${configPath}/custom_default_cpu_gov ] && cat ${configPath}/custom_default_cpu_gov || cat ${configPath}/default_cpu_gov`);
@@ -351,6 +329,7 @@ getServiceState();
 fetchCPUGovernors();
 setupShortcut();
 
+// Glass bg initial sync
 const bgDiv = document.getElementById('daemon_bg_image');
 if (bgDiv) {
   const img = document.getElementById('nusantara_logo');
